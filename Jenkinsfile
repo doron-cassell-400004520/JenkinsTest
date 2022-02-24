@@ -17,7 +17,7 @@ pipeline {
                     GIT_BRANCH = sh (
                         script: '''
                                     cd /var/www/html/
-                                    git branch
+                                    git push origin islandMovers
                                 ''',
                         returnStdout: true
                     ).trim()
@@ -31,7 +31,7 @@ pipeline {
                 sh 'cd'
                 script{
                     TEST_RESULTS = sh (
-                        script: 'node /home/doron-nginx/Documents/JenkinsTest/index.js',
+                        script: 'ls',
                         returnStdout: true
                     ).trim()
                     echo "${TEST_RESULTS}"
