@@ -5,15 +5,15 @@ pipeline {
     stages {
         stage('Git') {
             steps {
-                echo 'Status'
-                sh 'git status'
-            }
-        }
-        stage('Application Development') {
-            steps {
-                echo 'loading'
-                
                 script{
+                    env.TOKEN = sh (
+                        script: '''
+                                    cat /home/doron-nginx/Documents/token.txt
+                                ''',
+                        returnStdout: true
+                    ).trim()
+                    
+                    echo "Checking remote"
                     REMOTE_CHANGES = sh (
                         script: '''
                                     cd /var/www/html/
@@ -27,8 +27,6 @@ pipeline {
                     if (REMOTE_CHANGES) {
                         echo "No pulls required"
                     }else{
-                        env.TOKEN = input message: 'Please enter the token',parameters: [string(defaultValue: '',description: '',name: 'Token')]
-
                         GIT_PULL = sh (
                             script: """
                                         cd /var/www/html/
@@ -41,6 +39,7 @@ pipeline {
                         echo "${GIT_PULL}"
                     }
 
+                    echo "Checking local"
                     LOCAL_CHANGES = sh (
                         script: '''
                                     cd /var/www/html/
@@ -54,7 +53,6 @@ pipeline {
                         echo "Push not required"
                     }else{
                         env.COMMIT_MESSAGE = input message: 'Please enter the commit message',parameters: [string(defaultValue: '',description: '',name: 'Commit')]
-                        env.TOKEN = input message: 'Please enter the token',parameters: [string(defaultValue: '',description: '',name: 'Token')]
 
                         GIT_PUSH = sh (
                             script: """
@@ -69,6 +67,13 @@ pipeline {
                         echo "${GIT_PUSH}"
                     }
                 }
+            }
+        }
+        stage('Application Development') {
+            steps {
+                echo 'loading'
+                
+                
             }
         }
         stage('Run Functional Test') {
