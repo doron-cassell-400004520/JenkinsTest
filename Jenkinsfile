@@ -12,14 +12,13 @@ pipeline {
         stage('Application Development') {
             steps {
                 echo 'loading'
-                
+                TOKEN = read -p
                 script{
                     GIT_BRANCH = sh (
                         script: '''
                                     cd /var/www/html/
-                                    sudo git remote set-url origin https://github.com/doron-cassell-400004520/NginxVbox.git
+                                    sudo git remote set-url origin https://'''${TOKEN}'''@github.com/doron-cassell-400004520/NginxVbox.git
                                     sudo git push origin islandMovers
-                                    doron-cassell-400004520
                                 ''',
                         returnStdout: true
                     ).trim()
@@ -30,10 +29,11 @@ pipeline {
         stage('Run Functional Test') {
             steps {
                 echo 'Testing'
-                sh 'cd'
                 script{
                     TEST_RESULTS = sh (
-                        script: 'ls',
+                        script: '''
+                                    ls
+                        ''',
                         returnStdout: true
                     ).trim()
                     echo "${TEST_RESULTS}"
