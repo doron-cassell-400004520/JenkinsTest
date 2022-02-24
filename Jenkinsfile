@@ -13,7 +13,7 @@ pipeline {
         stage('Application Development') {
             steps {
                 echo 'loading'
-                sh 'git push'
+                sh 'git push origin islandMovers'
             }
         }
         stage('Run Functional Test') {
