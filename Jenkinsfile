@@ -14,17 +14,29 @@ pipeline {
                 echo 'loading'
                 
                 script{
-                    env.TOKEN = input message: 'Please enter the token',parameters: [string(defaultValue: '',description: '',name: 'Token')]
-                    
-                    GIT_BRANCH = sh (
-                        script: """
+                    CHANGES = sh (
+                        script: '''
                                     cd /var/www/html/
-                                    sudo git remote set-url origin https://${env.TOKEN}@github.com/doron-cassell-400004520/NginxVbox.git
-                                    sudo git push origin islandMovers
-                                """,
+                                    git diff --quiet; nochanges=$?
+                                    echo $nochanges
+                                ''',
                         returnStdout: true
                     ).trim()
-                    echo "${GIT_BRANCH}"
+                    if (CHANGES == '0') {
+                        echo "Push not required"
+                    }else{
+                        env.TOKEN = input message: 'Please enter the token',parameters: [string(defaultValue: '',description: '',name: 'Token')]
+
+                        GIT_BRANCH = sh (
+                            script: """
+                                        cd /var/www/html/
+                                        sudo git remote set-url origin https://${env.TOKEN}@github.com/doron-cassell-400004520/NginxVbox.git
+                                        sudo git push origin islandMovers
+                                    """,
+                            returnStdout: true
+                        ).trim()
+                        echo "${GIT_BRANCH}"
+                    }
                 }
             }
         }
