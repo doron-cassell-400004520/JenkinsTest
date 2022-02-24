@@ -20,7 +20,7 @@ pipeline {
             steps {
                 echo 'Testing'
                 sh 'cd'
-                sh 'node Documents/JenkinsTest/index.js'
+                sh 'node /home/doron-nginx/Documents/JenkinsTest/index.js'
             }
         }
     }
