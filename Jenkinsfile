@@ -14,7 +14,7 @@ pipeline {
                 echo 'loading'
 
                 sh 'cd /var/www/html/'
-                sh 'git remote set-url origin https://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@github.com/doron-cassell-400004520/NginxVbox.git'
+                sh 'git remote set-url origin https://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@github.com/doron-cassell-400004520/NginxVbox.git'
                 script{
                     GIT_BRANCH = sh (
                         script: 'ls',
