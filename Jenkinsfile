@@ -34,7 +34,7 @@ pipeline {
                                         sudo git remote set-url origin https://${env.TOKEN}@github.com/doron-cassell-400004520/NginxVbox.git
                                         sudo git pull
 
-                                    """
+                                    """,
                                     returnStdout: true
                         ).trim()
                         echo "${GIT_PULL}"
