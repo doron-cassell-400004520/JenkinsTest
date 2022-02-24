@@ -19,12 +19,12 @@ pipeline {
                                     cd /var/www/html/
                                     sudo git fetch
                                     git rev-list --count HEAD..@{u}; behind_count=$?
-                                    echo $behind_count
+                                    echo "true" if $behind_count > 0
                                 ''',
                         returnStdout: true
                     ).trim()
 
-                    if (REMOTE_CHANGES == 0) {
+                    if (REMOTE_CHANGES == "true") {
                         echo "No pulls required"
                     }else{
                         env.TOKEN = input message: 'Please enter the token',parameters: [string(defaultValue: '',description: '',name: 'Token')]
