@@ -17,9 +17,8 @@ pipeline {
                     GIT_BRANCH = sh (
                         script: '''
                                     cd /var/www/html/
+                                    sudo git remote set-url origin https://github.com/doron-cassell-400004520/NginxVbox.git
                                     sudo git push origin islandMovers
-                                    doron-cassell-400004520
-                                    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
                                 ''',
                         returnStdout: true
                     ).trim()
