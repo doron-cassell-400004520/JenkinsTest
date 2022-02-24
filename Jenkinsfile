@@ -15,8 +15,7 @@ pipeline {
                 
                 script{
                     env.TOKEN = input message: 'Please enter the token',parameters: [string(defaultValue: '',description: '',name: 'Token')]
-
-                    sh 
+                    
                     GIT_BRANCH = sh (
                         script: """
                                     cd /var/www/html/
