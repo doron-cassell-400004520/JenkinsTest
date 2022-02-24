@@ -23,7 +23,8 @@ pipeline {
                                 ''',
                         returnStdout: true
                     ).trim()
-                    if (REMOTE_CHANGES == '0') {
+
+                    if (REMOTE_CHANGES == 0) {
                         echo "No pulls required"
                     }else{
                         env.TOKEN = input message: 'Please enter the token',parameters: [string(defaultValue: '',description: '',name: 'Token')]
@@ -39,6 +40,7 @@ pipeline {
                         ).trim()
                         echo "${GIT_PULL}"
                     }
+
                     LOCAL_CHANGES = sh (
                         script: '''
                                     cd /var/www/html/
@@ -47,6 +49,7 @@ pipeline {
                                 ''',
                         returnStdout: true
                     ).trim()
+
                     if (LOCAL_CHANGES == '0') {
                         echo "Push not required"
                     }else{
