@@ -3,16 +3,16 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Git') {
             steps {
-                echo 'Building...'
-                sh 'npm install'
+                echo 'Pulling'
+                sh 'git pull'
             }
         }
-        stage('Test') {
+        stage('Application Development') {
             steps {
-                echo 'Testing...'
-                sh 'node /home/Documents/JenkinsTest/index.js'
+                echo 'loading'
+                sh 'git push'
             }
         }
     }
