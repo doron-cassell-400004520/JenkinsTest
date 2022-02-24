@@ -6,13 +6,13 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
-                sh 'npm install'
+                sh 'npm install node'
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing...'
-                sh 'node Documents/JenkinsTest/index.js'
+                sh 'node index.js'
             }
         }
     }
