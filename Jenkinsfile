@@ -6,17 +6,18 @@ pipeline {
         stage('Git') {
             steps {
                 echo 'Status'
-                sh 'cd /var/www/html/'
                 sh 'git status'
             }
         }
         stage('Application Development') {
             steps {
                 echo 'loading'
+
+                sh 'cd /var/www/html/'
                 sh 'git remote set-url origin https://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@github.com/doron-cassell-400004520/NginxVbox.git'
                 script{
                     GIT_BRANCH = sh (
-                        script: 'ls',
+                        script: 'git branch',
                         returnStdout: true
                     ).trim()
                     echo "${GIT_BRANCH}"
@@ -27,7 +28,13 @@ pipeline {
             steps {
                 echo 'Testing'
                 sh 'cd'
-                sh 'node /home/doron-nginx/Documents/JenkinsTest/index.js'
+                script{
+                    TEST_RESULTS = sh (
+                        script: 'node /home/doron-nginx/Documents/JenkinsTest/index.js',
+                        returnStdout: true
+                    ).trim()
+                    echo "${TEST_RESULTS}"
+                }
             }
         }
     }
