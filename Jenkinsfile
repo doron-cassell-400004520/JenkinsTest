@@ -1,11 +1,6 @@
 pipeline {
 
-    agent {
-        docker {
-            image 'node'
-            args '-u root'
-        }
-    }
+    agent any
 
     stages {
         stage('Build') {
@@ -17,7 +12,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing...'
-                sh 'npm test'
+                sh 'node Documents/JenkinsTest/index.js'
             }
         }
     }
