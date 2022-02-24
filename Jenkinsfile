@@ -14,7 +14,7 @@ pipeline {
                 echo 'loading'
                 
                 script{
-                    REMOTE_CHANGES= sh (
+                    REMOTE_CHANGES = sh (
                         script: '''
                                     cd /var/www/html/
                                     sudo git fetch
