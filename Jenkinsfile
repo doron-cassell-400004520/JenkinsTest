@@ -14,7 +14,6 @@ pipeline {
             steps {
                 echo 'loading'
                 sh 'git remote set-url origin https://github.com/doron-cassell-400004520/NginxVbox.git'
-                sh 'git push origin islandMovers'
             }
         }
         stage('Run Functional Test') {
