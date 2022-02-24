@@ -13,7 +13,7 @@ pipeline {
         stage('Application Development') {
             steps {
                 echo 'loading'
-                sh 'git remote set-url origin https://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@github.com/doron-cassell-400004520/NginxVbox.git'
+                sh 'git remote set-url origin https://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@github.com/doron-cassell-400004520/NginxVbox.git'
                 GIT_BRANCH = sh (
                     script: 'git branch',
                     returnStdout: true
