@@ -14,7 +14,32 @@ pipeline {
                 echo 'loading'
                 
                 script{
-                    CHANGES = sh (
+                    REMOTE_CHANGES= sh (
+                        script: '''
+                                    cd /var/www/html/
+                                    sudo git fetch
+                                    git rev-list --count HEAD..@{u}; behind_count=$?
+                                    echo $behind_count
+                                ''',
+                        returnStdout: true
+                    ).trim()
+                    if (REMOTE_CHANGES == '0') {
+                        echo "No pulls required"
+                    }else{
+                        env.TOKEN = input message: 'Please enter the token',parameters: [string(defaultValue: '',description: '',name: 'Token')]
+
+                        GIT_PULL = sh (
+                            script: """
+                                        cd /var/www/html/
+                                        sudo git remote set-url origin https://${env.TOKEN}@github.com/doron-cassell-400004520/NginxVbox.git
+                                        sudo git pull
+
+                                    """
+                                    returnStdout: true
+                        ).trim()
+                        echo "${GIT_PULL}"
+                    }
+                    LOCAL_CHANGES = sh (
                         script: '''
                                     cd /var/www/html/
                                     git diff --quiet; nochanges=$?
@@ -22,20 +47,23 @@ pipeline {
                                 ''',
                         returnStdout: true
                     ).trim()
-                    if (CHANGES == '0') {
+                    if (LOCAL_CHANGES == '0') {
                         echo "Push not required"
                     }else{
+                        env.COMMIT_MESSAGE = input message: 'Please enter the commit message',parameters: [string(defaultValue: '',description: '',name: 'Commit')]
                         env.TOKEN = input message: 'Please enter the token',parameters: [string(defaultValue: '',description: '',name: 'Token')]
 
-                        GIT_BRANCH = sh (
+                        GIT_PUSH = sh (
                             script: """
                                         cd /var/www/html/
                                         sudo git remote set-url origin https://${env.TOKEN}@github.com/doron-cassell-400004520/NginxVbox.git
+                                        sudo git add .
+                                        sudo git commit -m "${env.COMMIT_MESSAGE}"
                                         sudo git push origin islandMovers
                                     """,
                             returnStdout: true
                         ).trim()
-                        echo "${GIT_BRANCH}"
+                        echo "${GIT_PUSH}"
                     }
                 }
             }
