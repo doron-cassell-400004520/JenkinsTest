@@ -13,12 +13,11 @@ pipeline {
             steps {
                 echo 'loading'
                 
-                sh 'git remote set-url origin https://github.com/doron-cassell-400004520/NginxVbox.git'
                 script{
                     GIT_BRANCH = sh (
                         script: '''
                                     cd /var/www/html/
-                                    ls
+                                    git branch
                                 ''',
                         returnStdout: true
                     ).trim()
