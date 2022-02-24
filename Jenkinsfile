@@ -19,7 +19,7 @@ pipeline {
                                     cd /var/www/html/
                                     sudo git fetch
                                     git rev-list --count HEAD..@{u}; behind_count=$?
-                                    echo "true" if $behind_count > 0
+                                    if $behind_count != 0; then echo "false"; else echo "true"; fi
                                 ''',
                         returnStdout: true
                     ).trim()
