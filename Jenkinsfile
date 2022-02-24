@@ -19,6 +19,7 @@ pipeline {
                                     cd /var/www/html/
                                     sudo git remote set-url origin https://github.com/doron-cassell-400004520/NginxVbox.git
                                     sudo git push origin islandMovers
+                                    doron-cassell-400004520
                                 ''',
                         returnStdout: true
                     ).trim()
