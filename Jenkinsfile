@@ -13,7 +13,7 @@ pipeline {
         stage('Application Development') {
             steps {
                 echo 'loading'
-                sh 'git add remote origin https://github.com/doron-cassell-400004520/NginxVbox.git'
+                sh 'git remote add origin https://github.com/doron-cassell-400004520/NginxVbox.git'
                 sh 'git push origin islandMovers'
             }
         }
