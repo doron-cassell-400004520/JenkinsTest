@@ -14,11 +14,14 @@ pipeline {
                 echo 'loading'
                 
                 script{
+                    env.TOKEN = input message: 'Please enter the token',parameters: [string(defaultValue: '',description: '',name: 'Token')]
+
+                    sh """
+                            cd /var/www/html/
+                            sudo git remote set-url origin https://${env.TOKEN}@github.com/doron-cassell-400004520/NginxVbox.git
+                        """
                     GIT_BRANCH = sh (
                         script: '''
-                                    TOKEN = read -p
-                                    cd /var/www/html/
-                                    sudo git remote set-url origin https://TOKEN@github.com/doron-cassell-400004520/NginxVbox.git
                                     sudo git push origin islandMovers
                                 ''',
                         returnStdout: true
