@@ -17,7 +17,7 @@ pipeline {
                 sh 'git remote set-url origin https://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@github.com/doron-cassell-400004520/NginxVbox.git'
                 script{
                     GIT_BRANCH = sh (
-                        script: 'git branch',
+                        script: 'ls',
                         returnStdout: true
                     ).trim()
                     echo "${GIT_BRANCH}"
