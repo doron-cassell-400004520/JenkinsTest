@@ -12,12 +12,13 @@ pipeline {
         stage('Application Development') {
             steps {
                 echo 'loading'
-                TOKEN = read -p
+                
                 script{
                     GIT_BRANCH = sh (
                         script: '''
+                                    TOKEN = read -p
                                     cd /var/www/html/
-                                    sudo git remote set-url origin https://'''${TOKEN}'''@github.com/doron-cassell-400004520/NginxVbox.git
+                                    sudo git remote set-url origin https://TOKEN@github.com/doron-cassell-400004520/NginxVbox.git
                                     sudo git push origin islandMovers
                                 ''',
                         returnStdout: true
