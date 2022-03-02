@@ -82,7 +82,8 @@ pipeline {
                 script{
                     TEST_RESULTS = sh (
                         script: '''
-                                    node Documents/JenkinsTest/index.js
+                                    cd /home/doron-nginx/Documents/JenkinsTest
+                                    node index.js
                         ''',
                         returnStdout: true
                     ).trim()
