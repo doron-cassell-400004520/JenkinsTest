@@ -2,6 +2,8 @@ pipeline {
 
     agent any
 
+    tools {nodejs "node"}
+
     stages {
         stage('Git') {
             steps {
@@ -82,11 +84,19 @@ pipeline {
                 script{
                     TEST_RESULTS = sh (
                         script: '''
-                                    ls
+                                    npm install
+                                    npm install selenium-webdriver
+                                    node Documents/JenkinsTest/index.js
                         ''',
                         returnStdout: true
                     ).trim()
                     echo "${TEST_RESULTS}"
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying'
                 }
             }
         }
