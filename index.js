@@ -1,8 +1,8 @@
 const {By,Key,Builder} = require("selenium-webdriver");
-require("selenium-webdriver/firefox");
+const firefox = require("selenium-webdriver/firefox");
 
 async function homeTests(){
-    let driver = await new Builder().forBrowser("firefox").build();
+    let driver = await new Builder().forBrowser("firefox").setFirefoxOptions(new firefox.Options().addArguments('--headless')).build();
     await driver.get("http://127.0.0.1:80/");
 
     try{
@@ -16,7 +16,7 @@ async function homeTests(){
 }
 
 async function aboutUsTests(){
-    let driver = await new Builder().forBrowser("firefox").build();
+    let driver = await new Builder().forBrowser("firefox").setFirefoxOptions(new firefox.Options().addArguments('--headless')).build();
     await driver.get("http://127.0.0.1:80/aboutus");
 
     try{
@@ -35,7 +35,7 @@ async function aboutUsTests(){
 }
 
 async function orderTaxisTests(){
-    let driver = await new Builder().forBrowser("firefox").build();
+    let driver = await new Builder().forBrowser("firefox").setFirefoxOptions(new firefox.Options().addArguments('--headless')).build();
     await driver.get("http://127.0.0.1:80/ordertaxi");
 
     try{
@@ -90,7 +90,7 @@ async function orderTaxisTests(){
 }
 
 async function contactUsTests(){
-    let driver = await new Builder().forBrowser("firefox").build();
+    let driver = await new Builder().forBrowser("firefox").setFirefoxOptions(new firefox.Options().addArguments('--headless')).build();
     await driver.get("http://127.0.0.1:80/contact");
 
     try{
