@@ -73,9 +73,7 @@ pipeline {
         }
         stage('Application Development') {
             steps {
-                echo 'loading'
-                
-                
+                echo 'loading'                
             }
         }
         stage('Run Functional Test') {
@@ -84,8 +82,6 @@ pipeline {
                 script{
                     TEST_RESULTS = sh (
                         script: '''
-                                    npm install
-                                    npm install selenium-webdriver
                                     node Documents/JenkinsTest/index.js
                         ''',
                         returnStdout: true
